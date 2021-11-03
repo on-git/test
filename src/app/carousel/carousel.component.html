@@ -1,0 +1,32 @@
+<div class="carousel">
+  <img
+    [src]="displayedImage || imageArr[0] || placeholderPath"
+    alt="Picture of {{ launchName }}"
+    height="400"
+    width="400"
+    loading="lazy"
+  />
+  <section *ngIf="imageArr[0]">
+    <div class="imageList">
+      <button (click)="goLeft()">
+        <i class="fas fa-chevron-left"> </i>
+      </button>
+      <ul>
+        <li *ngFor="let pic of tempArr">
+          <img
+            id="displayedImage"
+            [src]="pic"
+            alt="Picture of {{ launchName }}"
+            height="100"
+            width="100"
+            loading="lazy"
+            (click)="displayImage(pic)"
+          />
+        </li>
+      </ul>
+      <button (click)="goRight()">
+        <i class="fas fa-chevron-right"> </i>
+      </button>
+    </div>
+  </section>
+</div>

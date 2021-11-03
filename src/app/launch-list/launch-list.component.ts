@@ -8,6 +8,14 @@ import { Component, ChangeDetectionStrategy } from "@angular/core";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LaunchListComponent {
+  launchesLoading: boolean;
+  placeholderPath = "";
+  ngOnInit() {
+    this.placeholderPath = "/assets/images/placeholder.jpg";
+    this.launchFacade.launchListLoading$.subscribe(data => {
+      this.launchesLoading = data;
+    });
+  }
   constructor(private readonly launchFacade: LaunchFacadeService) {}
   pastLaunches$ = this.launchFacade.pastLaunchListStoreCache();
 }

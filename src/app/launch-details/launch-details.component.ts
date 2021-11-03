@@ -10,10 +10,15 @@ import { LaunchDetailsGQL } from "../services/spacexGraphql.service";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LaunchDetailsComponent {
+  placeholderPath = "";
   constructor(
     private readonly route: ActivatedRoute,
     private readonly launchDetailsService: LaunchDetailsGQL
   ) {}
+
+  ngOnInit() {
+    this.placeholderPath = "/assets/images/placeholder.jpg";
+  }
 
   launchDetails$ = this.route.paramMap.pipe(
     map(params => params.get("id") as string),

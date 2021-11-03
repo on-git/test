@@ -1,7 +1,37 @@
-.photo-grid {
-  padding-top: 30px;
-  display: grid;
-  grid-gap: 10px;
-  grid-template-columns: repeat(auto-fill, 300px);
+.content {
+  padding: 0 50px;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+  height: 100%;
+}
+
+.content .detailContent {
+  display: flex;
+  align-items: center;
+}
+
+.content .profile {
+  display: flex;
+  flex-direction: column;
+}
+
+.content .detailContent .imageColumn,
+.profile {
+  flex: 1;
+}
+
+.content .fa-chevron-left {
+  cursor: pointer;
+}
+
+.content section .mat-card {
+  text-align: center;
+}
+
+.content section .mat-card img {
+  border-radius: 50%;
+  height: 256px;
+  width: 256px;
+  object-fit: cover;
 }

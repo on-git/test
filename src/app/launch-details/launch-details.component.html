@@ -1,29 +1,29 @@
 <ng-container *ngIf="launchDetails$ | async as launchDetails">
-  <section style="padding-top: 20px;">
-    <mat-card style="width: 400px; margin: auto;">
-      <mat-card-header>
-        <mat-card-title>{{ launchDetails.mission_name }}</mat-card-title>
-      </mat-card-header>
-      <img
-        height="256"
-        width="256"
-        mat-card-image
-        [src]="launchDetails.links.mission_patch"
-        alt="Mission patch of {{ launchDetails.mission_name }}"
-      />
-      <mat-card-content>
-        <p>{{ launchDetails.details }}</p>
-      </mat-card-content>
-    </mat-card>
-  </section>
-  <section class="photo-grid">
-    <img
-      *ngFor="let pic of launchDetails.links.flickr_images"
-      [src]="pic"
-      alt="Picture of {{ launchDetails.mission_name }}"
-      height="300"
-      width="300"
-      loading="lazy"
-    />
-  </section>
+  <div class="content">
+    <h2>
+      <i class="fas fa-chevron-left"> </i>
+      {{ launchDetails.mission_name }}
+    </h2>
+    <div class="detailContent">
+      <div class="profile">
+        <section>
+          <mat-card style="width: 400px; margin: auto;">
+            <img
+              mat-card-image
+              [src]="launchDetails.links.mission_patch || placeholderPath"
+              alt="Mission patch of {{ launchDetails.mission_name }}"
+            />
+            <mat-card-content>
+              <p>{{ launchDetails.details }}</p>
+            </mat-card-content>
+          </mat-card>
+        </section>
+      </div>
+      <app-carousel
+        class="imageColumn"
+        [launchImages]="launchDetails.links.flickr_images"
+        [launchName]="launchDetails.mission_name"
+      ></app-carousel>
+    </div>
+  </div>
 </ng-container>
