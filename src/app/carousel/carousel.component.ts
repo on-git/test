@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, SimpleChanges } from "@angular/core";
+
+const PLACEHOLDER_IMAGE_PATH = "/assets/images/placeholder.jpg";
 
 @Component({
   selector: "app-carousel",
@@ -10,16 +12,19 @@ export class CarouselComponent implements OnInit {
   @Input() launchName: string;
 
   displayedImage: any;
-  imageArr: any[] = [];
+  imageArr = [];
   tempArr = [];
-  placeholderPath = "";
+  missionName = "";
+  placeholderPath = PLACEHOLDER_IMAGE_PATH;
 
   constructor() {}
 
-  ngOnInit() {
-    this.imageArr = this.launchImages;
+  ngOnInit() {}
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.imageArr = changes.launchImages.currentValue;
+    this.missionName = changes.launchName.currentValue;
     this.tempArr = this.imageArr.slice(0, 3);
-    this.placeholderPath = "/assets/images/placeholder.jpg";
   }
 
   displayImage(pic: any) {

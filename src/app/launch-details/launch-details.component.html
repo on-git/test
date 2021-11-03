@@ -1,7 +1,7 @@
 <ng-container *ngIf="launchDetails$ | async as launchDetails">
   <div class="content">
     <h2>
-      <i class="fas fa-chevron-left"> </i>
+      <i class="fas fa-chevron-left" (click)="router.navigate(['../'])"> </i>
       {{ launchDetails.mission_name }}
     </h2>
     <div class="detailContent">

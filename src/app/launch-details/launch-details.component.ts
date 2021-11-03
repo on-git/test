@@ -1,7 +1,9 @@
 import { Component, ChangeDetectionStrategy } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { map, switchMap } from "rxjs/operators";
-import { LaunchDetailsGQL } from "../services/spacexGraphql.service";
+import { LaunchFacadeService } from "../services/launch-facade.service";
+
+const PLACEHOLDER_IMAGE_PATH = "/assets/images/placeholder.jpg";
 
 @Component({
   selector: "app-launch-details",
@@ -10,19 +12,19 @@ import { LaunchDetailsGQL } from "../services/spacexGraphql.service";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LaunchDetailsComponent {
-  placeholderPath = "";
+  placeholderPath = PLACEHOLDER_IMAGE_PATH;
   constructor(
+    public router: Router,
     private readonly route: ActivatedRoute,
-    private readonly launchDetailsService: LaunchDetailsGQL
+    private launchDetailFacadeService: LaunchFacadeService
   ) {}
 
-  ngOnInit() {
-    this.placeholderPath = "/assets/images/placeholder.jpg";
-  }
+  ngOnInit() {}
 
   launchDetails$ = this.route.paramMap.pipe(
     map(params => params.get("id") as string),
-    switchMap(id => this.launchDetailsService.fetch({ id })),
-    map(res => res.data.launch)
+    switchMap(id =>
+      this.launchDetailFacadeService.pastLaunchDetailStoreCache(id)
+    )
   );
 }

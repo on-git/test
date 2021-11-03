@@ -3,7 +3,7 @@ import { map } from "rxjs/operators";
 import { PastLaunchesListGQL } from "./spacexGraphql.service";
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { loadLaunchList } from "../store/actions";
+import { loadLaunchList, loadLaunchDetail } from "../store/actions";
 import * as launchListQuery from "../store/selectors";
 
 @Injectable({
@@ -29,5 +29,10 @@ export class LaunchFacadeService {
     return this.pastLaunchesService
       .fetch({ limit: 30 })
       .pipe(map(res => res.data.launchesPast));
+  }
+
+  pastLaunchDetailStoreCache(id: string) {
+    this.store.dispatch(loadLaunchDetail({ id }));
+    return this.store.select(launchListQuery.getLaunchDetail);
   }
 }

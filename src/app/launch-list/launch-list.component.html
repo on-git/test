@@ -2,37 +2,34 @@
   <main>
     <section class="container">
       <mat-card
-        *ngFor="let launch of pastLaunches"
+        *ngFor="let launch of pastLaunches; index as i"
         [routerLink]="['/', launch.id]"
       >
-        <ng-template *ngIf="launchesLoading; else showList">
-          <mat-spinner></mat-spinner>
-        </ng-template>
-        <ng-template #showList>
-          <mat-card-header>
-            <img
-              height="50"
-              width="50"
-              mat-card-avatar
-              loading="lazy"
-              [src]="launch.links.mission_patch_small || placeholderPath"
-              alt="Mission patch of {{ launch.mission_name }}"
-            />
-            <mat-card-title>{{ launch.mission_name }}</mat-card-title>
-            <mat-card-subtitle
-              >{{ launch.rocket.rocket_name }} - launched
-              {{ launch.launch_date_utc | relativeTime }}</mat-card-subtitle
-            >
-          </mat-card-header>
+        <mat-card-header>
           <img
-            height="300"
-            width="300"
-            mat-card-image
+            height="50"
+            width="50"
+            mat-card-avatar
             loading="lazy"
-            [src]="launch.links.flickr_images[0] || placeholderPath"
-            alt="Photo of {{ launch.mission_name }}"
+            [src]="launch.links.mission_patch_small || placeholderPath"
+            alt="Mission patch of {{ launch.mission_name }}"
           />
-        </ng-template>
+          <mat-card-title>{{ launch.mission_name }}</mat-card-title>
+          <mat-card-subtitle
+            >{{ launch.rocket.rocket_name }} - launched
+            {{ launch.launch_date_utc | relativeTime }}</mat-card-subtitle
+          >
+        </mat-card-header>
+        <mat-spinner *ngIf="!loadedImages[i]"></mat-spinner>
+        <img
+          height="300"
+          width="300"
+          mat-card-image
+          loading="lazy"
+          [src]="launch.links.flickr_images[0] || placeholderPath"
+          alt="Photo of {{ launch.mission_name }}"
+          (load)="loadSuccess(i)"
+        />
       </mat-card>
     </section>
   </main>
