@@ -18,9 +18,6 @@ export class LaunchListComponent {
     this.pastLaunches$.subscribe(data => {
       this.loadedImages = data.map(() => false);
     });
-    this.launchFacade.launchListLoading$.subscribe(data => {
-      this.launchesLoading = data;
-    });
   }
   constructor(private readonly launchFacade: LaunchFacadeService) {}
   pastLaunches$ = this.launchFacade.pastLaunchListStoreCache();
